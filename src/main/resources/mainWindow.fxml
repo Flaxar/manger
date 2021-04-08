@@ -10,10 +10,10 @@
             <AnchorPane prefHeight="1200.0" prefWidth="84.0" />
             <Pane prefHeight="1200.0" prefWidth="1117.0">
                <children>
-                  <TableView layoutX="2.0" prefHeight="1200.0" prefWidth="1117.0">
+                  <TableView fx:id="mangaList" layoutX="2.0" prefHeight="1200.0" prefWidth="1117.0">
                     <columns>
-                      <TableColumn prefWidth="240.99998211860657" text="C1" />
-                      <TableColumn prefWidth="874.3332977294922" text="C2" />
+                      <TableColumn prefWidth="240.99998211860657" resizable="false" />
+                      <TableColumn prefWidth="874.3332977294922" resizable="false" text="Title" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
