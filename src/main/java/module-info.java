@@ -2,6 +2,9 @@ module org.manger {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.net.http;
-    exports org.manger;
+    requires org.jsoup;
+    requires selenium.api;
+    requires selenium.chrome.driver;
+    requires selenium.support;
     exports org.manger.frontend;
 }
