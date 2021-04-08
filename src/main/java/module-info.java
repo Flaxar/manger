@@ -3,8 +3,6 @@ module org.manger {
     requires javafx.fxml;
     requires java.net.http;
     requires org.jsoup;
-    requires selenium.api;
-    requires selenium.chrome.driver;
-    requires selenium.support;
+    requires com.google.gson;
     exports org.manger.frontend;
 }
