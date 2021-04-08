@@ -1,6 +1,5 @@
 package org.manger.backend.siteExtensions;
 
-
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -9,13 +8,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 import java.util.List;
 
 public class Mangasee implements MangaWebsite {
     String mangaseeURL = "https://mangasee123.com/_search.php";
 
     @Override
-    public List<String> loadListOfAllMangas() throws IOException, InterruptedException {
+    public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(mangaseeURL))
@@ -25,10 +25,6 @@ public class Mangasee implements MangaWebsite {
         Gson gson = new Gson();
         MangaInfo[] mangas = gson.fromJson(response.body(), MangaInfo[].class);
 
-        for(MangaInfo title : mangas) {
-            System.out.println(title.getTitle());
-        }
-
-        return null;
+        return Arrays.asList(mangas);
     }
 }

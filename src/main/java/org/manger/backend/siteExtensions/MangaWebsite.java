@@ -9,5 +9,5 @@ public interface MangaWebsite {
     * Used to download the entire website.
     * Then parse only manga titles and return them as a list of strings.
     */
-    public List<String> loadListOfAllMangas() throws IOException, InterruptedException;
+    public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException;
 }

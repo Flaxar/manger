@@ -13,11 +13,11 @@ public class MangaInfo {
         this.a = a;
     }
 
-    public String getTitle() {
+    public String getURL() {
         return i;
     }
 
-    public String getTransalation() {
+    public String getTitle() {
         return s;
     }
 
