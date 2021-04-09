@@ -1,23 +1,36 @@
 package org.manger.frontend;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.io.IOException;
 
 public class MainWindowController {
+    // Main stage
+    @FXML private final Stage stage;
+
+    // Main controll buttons
+    @FXML private Button libraryButton;
+    @FXML private Button browseButton;
+    @FXML private Button sourcesButton;
+    @FXML private Button settingsButton;
+
+    // Components in the "Browse" section
+    @FXML private Pane mangaListPane;
     @FXML private ListView<String> mangaList;
     @FXML private TableColumn<MangaInfo, Image> imageColumn;
     @FXML private TableColumn<MangaInfo, String> titleColumn;
     @FXML private TextField searchBar;
-    @FXML private final Stage stage;
 
     private final DataStorage storage;
 
@@ -34,8 +47,14 @@ public class MainWindowController {
         stage.show();
 
         scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());
+        
+        initMainButtons();
 
         initSearchBarListener();
+    }
+
+    private void initMainButtons() {
+//        libraryButton.setGraphic(new Image());
     }
 
     public void fillMangaList() {

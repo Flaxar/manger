@@ -5,28 +5,54 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="157.0" layoutY="114.0" prefHeight="286.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="1200.0" prefWidth="84.0" />
-            <Pane prefHeight="1200.0" prefWidth="1117.0">
+            <AnchorPane prefHeight="1200.0" prefWidth="84.0">
+               <children>
+                  <VBox prefHeight="1200.0" prefWidth="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" fx:id="libraryButton">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="BOOK" glyphSize="40"/>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Browse" fx:id="browseButton">
+                           <VBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Sources" fx:id="sourcesButton">
+                           <VBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Settings" fx:id="settingsButton">
+                           <VBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </VBox.margin></Button>
+                     </children></VBox>
+               </children></AnchorPane>
+            <Pane fx:id="mangaListPane" prefHeight="1200.0" prefWidth="1117.0">
                <children>
                   <VBox prefHeight="1200.0" prefWidth="1117.0">
                      <children>
-                        <TextField promptText="Search mangas..." fx:id="searchBar">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </TextField>
-                         <ListView fx:id="mangaList" prefHeight="1169.0" prefWidth="1117.0">
-<!--                       <cellFactory>-->
-<!--                           <PropertyValueFactory property="title" />-->
-<!--                       </cellFactory>-->
-                   </ListView>
+                        <HBox prefHeight="55.0" prefWidth="1117.0">
+                           <children>
+                              <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="896.0" promptText="Search mangas...">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                         <ListView fx:id="mangaList" prefHeight="1169.0" prefWidth="1117.0" />
                      </children>
                   </VBox>
                </children>
