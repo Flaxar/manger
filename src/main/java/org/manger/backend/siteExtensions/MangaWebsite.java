@@ -7,7 +7,9 @@ import java.util.List;
 public interface MangaWebsite {
     /*
     * Used to download the entire website.
-    * Then parse only manga titles and return them as a list of strings.
+    * Then parse it into a List of MangaInfo classes
     */
     public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException;
+
+    public List<MangaInfo> getMangasByGenre();
 }

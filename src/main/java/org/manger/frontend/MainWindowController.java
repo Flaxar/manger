@@ -65,13 +65,14 @@ public class MainWindowController {
      */
     private void filterList(String newValue) {
         mangaList.getItems().clear();
+        String lowerCaseUserInput = newValue.toLowerCase();
         for(MangaInfo info : storage.getAllMangas()) {
             String title = info.getTitle();
-            if(title.toLowerCase().contains(newValue.toLowerCase())) {
+            if(title.toLowerCase().contains(lowerCaseUserInput)) {
                 mangaList.getItems().add(title);
             } else if(!info.getAlternatives().isEmpty()) {
                 for(String alternativeTitle : info.getAlternatives()) {
-                    if(alternativeTitle.toLowerCase().contains(newValue.toLowerCase())) {
+                    if(alternativeTitle.toLowerCase().contains(lowerCaseUserInput)) {
                         mangaList.getItems().add(title + " (" + alternativeTitle + ")");
                     }
                 }

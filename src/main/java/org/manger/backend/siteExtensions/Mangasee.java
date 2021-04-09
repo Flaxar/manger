@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Mangasee implements MangaWebsite {
     String mangaseeURL = "https://mangasee123.com/_search.php";
+    List<SiteGenres> siteGenres;
 
     @Override
     public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException {
@@ -26,5 +27,10 @@ public class Mangasee implements MangaWebsite {
         MangaInfo[] mangas = gson.fromJson(response.body(), MangaInfo[].class);
 
         return Arrays.asList(mangas);
+    }
+
+    @Override
+    public List<MangaInfo> getMangasByGenre() {
+        return null;
     }
 }
