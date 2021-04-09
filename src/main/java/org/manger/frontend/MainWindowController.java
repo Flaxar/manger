@@ -44,6 +44,11 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Adds a listener to the search bar.
+     * Everytime the text is changed, filterList is called with the new
+     * text as an argument.
+     */
     private void initSearchBarListener() {
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
                 filterList(newValue)
