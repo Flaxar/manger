@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.manger.frontend.MainWindowController">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="157.0" layoutY="114.0" prefHeight="286.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -12,8 +13,16 @@
                <children>
                   <TableView fx:id="mangaList" layoutX="2.0" prefHeight="1200.0" prefWidth="1117.0">
                     <columns>
-                      <TableColumn prefWidth="240.99998211860657" resizable="false" />
-                      <TableColumn prefWidth="874.3332977294922" resizable="false" text="Title" />
+                        <TableColumn prefWidth="240.99998211860657" resizable="false" fx:id="imageColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="image" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="874.3332977294922" resizable="false" text="Title" fx:id="titleColumn">
+                            <cellValueFactory>
+                              <PropertyValueFactory property="title" />
+                            </cellValueFactory>
+                        </TableColumn>
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
