@@ -14,7 +14,7 @@
                <children>
                   <VBox prefHeight="1200.0" prefWidth="1117.0">
                      <children>
-                        <TextField promptText="Search mangas...">
+                        <TextField promptText="Search mangas..." fx:id="searchBar">
                            <font>
                               <Font size="18.0" />
                            </font>
