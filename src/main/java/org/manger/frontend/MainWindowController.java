@@ -1,7 +1,9 @@
 package org.manger.frontend;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -15,38 +17,27 @@ import org.manger.backend.siteExtensions.MangaInfo;
 import java.io.IOException;
 
 public class MainWindowController {
-    // Main stage
-    @FXML private final Stage stage;
-
     // Main controll buttons
-    @FXML private Button libraryButton;
-    @FXML private Button browseButton;
-    @FXML private Button sourcesButton;
-    @FXML private Button settingsButton;
+//    @FXML private Button libraryButton;
+//    @FXML private Button browseButton;
+//    @FXML private Button sourcesButton;
+//    @FXML private Button settingsButton;
 
     // Components in the "Browse" section
-    @FXML private Pane mangaListPane;
+    @FXML private Pane browsePane;
     @FXML private ListView<String> mangaList;
-    @FXML private TableColumn<MangaInfo, Image> imageColumn;
-    @FXML private TableColumn<MangaInfo, String> titleColumn;
     @FXML private TextField searchBar;
 
-    private final DataStorage storage;
+    // Components in the "Source" section
+    @FXML private Pane sourcePane;
 
+    private DataStorage storage;
 
-    public MainWindowController(DataStorage storage) throws IOException {
-        this.storage = storage;
-        stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/mainWindow.fxml"));
-        loader.setController(this);
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.setTitle("Manger");
-        stage.show();
-
-        scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());
-        
+    /**
+     * Imitates a cunstructor.
+     * This is the only solution I've been able to find to fix FXML controller issues.
+     */
+    public void init(Stage stage) {
         initMainButtons();
 
         initSearchBarListener();
@@ -96,5 +87,33 @@ public class MainWindowController {
                 }
             }
         }
+    }
+
+    public void switchToLibraryPane() {
+
+    }
+
+    public void switchToBrowsePane() {
+        sourcePane.setVisible(false);
+        sourcePane.setDisable(true);
+
+        browsePane.setVisible(true);
+        browsePane.setDisable(false);
+    }
+
+    public void switchToSourcesPane() {
+        sourcePane.setVisible(true);
+        sourcePane.setDisable(false);
+
+        browsePane.setVisible(false);
+        browsePane.setDisable(true);
+    }
+
+    public void switchToSettingsPane() {
+
+    }
+
+    public void setStorage(DataStorage storage) {
+        this.storage = storage;
     }
 }

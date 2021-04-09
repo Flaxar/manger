@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<AnchorPane prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.manger.frontend.MainWindowController">
    <children>
       <HBox layoutX="157.0" layoutY="114.0" prefHeight="286.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -14,58 +14,69 @@
                <children>
                   <VBox prefHeight="1200.0" prefWidth="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="libraryButton">
+                        <Button mnemonicParsing="false" onAction="#switchToLibraryPane" prefHeight="73.0" prefWidth="73.0" styleClass="mainButtons">
                            <graphic>
-                              <FontAwesomeIconView styleClass="icon" glyphName="BOOK" glyphSize="40"/>
+                              <FontAwesomeIconView glyphName="BOOK" glyphSize="40" styleClass="icon" />
                            </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="browseButton">
+                        <Button mnemonicParsing="false" onAction="#switchToBrowsePane" prefHeight="73.0" prefWidth="73.0" styleClass="mainButtons">
                            <graphic>
-                              <FontAwesomeIconView styleClass="icon" glyphName="SEARCH" glyphSize="40"/>
+                              <FontAwesomeIconView glyphName="SEARCH" glyphSize="40" styleClass="icon" />
                            </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="sourcesButton">
+                        <Button mnemonicParsing="false" onAction="#switchToSourcesPane" prefHeight="73.0" prefWidth="73.0" styleClass="mainButtons">
                            <graphic>
-                              <FontAwesomeIconView styleClass="icon" glyphName="COMPASS" glyphSize="40"/>
+                              <FontAwesomeIconView glyphName="COMPASS" glyphSize="40" styleClass="icon" />
                            </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="settingsButton">
+                        <Button mnemonicParsing="false" onAction="#switchToSettingsPane" prefHeight="73.0" prefWidth="73.0" styleClass="mainButtons">
                            <graphic>
-                              <FontAwesomeIconView styleClass="icon" glyphName="COG" glyphSize="40"/>
+                              <FontAwesomeIconView glyphName="COG" glyphSize="40" styleClass="icon" />
                            </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
                      </children></VBox>
                </children></AnchorPane>
-            <Pane fx:id="mangaListPane" prefHeight="1200.0" prefWidth="1117.0">
+            <StackPane prefHeight="1200.0" prefWidth="1116.0">
                <children>
-                  <VBox prefHeight="1200.0" prefWidth="1117.0">
+                  <Pane fx:id="sourcePane" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <HBox prefHeight="55.0" prefWidth="1117.0">
+                        <VBox prefHeight="1200.0" prefWidth="1117.0">
                            <children>
-                              <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="896.0" promptText="Search mangas...">
+                              <TextField prefHeight="43.0" prefWidth="1117.0" promptText="Ahoj">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
                               </TextField>
                            </children>
+                        </VBox>
+                     </children></Pane>
+                  <Pane fx:id="browsePane" prefHeight="1200.0" prefWidth="1117.0">
+                     <VBox prefHeight="1200.0" prefWidth="1117.0">
+                        <HBox prefHeight="55.0" prefWidth="1117.0">
+                           <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="896.0"
+                                      promptText="Search mangas...">
+                              <font>
+                                 <Font size="18.0"/>
+                              </font>
+                              <HBox.margin>
+                                 <Insets bottom="5.0" right="5.0" top="5.0"/>
+                              </HBox.margin>
+                           </TextField>
                         </HBox>
-                         <ListView fx:id="mangaList" prefHeight="1169.0" prefWidth="1117.0" />
-                     </children>
-                  </VBox>
+                        <ListView fx:id="mangaList" prefHeight="1169.0" prefWidth="1117.0"/>
+                     </VBox>
+                  </Pane>
                </children>
-            </Pane>
+            </StackPane>
          </children>
       </HBox>
    </children>

@@ -1,6 +1,8 @@
 package org.manger;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.manger.backend.WebLoader;
 import org.manger.backend.siteExtensions.Mangasee;
@@ -22,7 +24,20 @@ public class App extends Application {
         DataStorage storage = new DataStorage();
         storage.setAllMangas(mangasee.loadListOfAllMangas());
 
-        MainWindowController mainController = new MainWindowController(storage);
-        mainController.fillMangaList();
+
+
+        stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/mainWindow.fxml"));
+        Scene scene = new Scene(loader.load());
+        MainWindowController mainWindowController = loader.getController();
+        stage.setScene(scene);
+        stage.setTitle("Manger");
+        stage.show();
+
+        mainWindowController.setStorage(storage);
+        mainWindowController.fillMangaList();
+
+        scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());
     }
 }
