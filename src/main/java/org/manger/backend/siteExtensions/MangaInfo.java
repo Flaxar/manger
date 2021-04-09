@@ -2,6 +2,7 @@ package org.manger.backend.siteExtensions;
 
 import javafx.collections.ObservableArray;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ public class MangaInfo {
         this.i = i;
         this.s = s;
         this.a = a;
-        cover = new Image("https://cover.nep.li/cover/" + i);
     }
 
     public String getURL() {
@@ -31,7 +31,8 @@ public class MangaInfo {
         return a;
     }
 
-    public Image getCover() {
-        return cover;
+    public ImageView getImage() {
+        cover = new Image("https://cover.nep.li/cover/" + i);
+        return new ImageView(cover);
     }
 }
