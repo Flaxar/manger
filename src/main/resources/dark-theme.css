@@ -69,3 +69,11 @@
     -fx-table-cell-border-color:transparent;
     -fx-font-size: 20;
 }
+
+.mainButtons {
+    -fx-border-color: transparent;
+}
+
+.icon {
+    -fx-fill: white;
+}

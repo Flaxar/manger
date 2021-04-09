@@ -14,23 +14,32 @@
                <children>
                   <VBox prefHeight="1200.0" prefWidth="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" fx:id="libraryButton">
+                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="libraryButton">
                            <graphic>
-                              <FontAwesomeIconView glyphName="BOOK" glyphSize="40"/>
+                              <FontAwesomeIconView styleClass="icon" glyphName="BOOK" glyphSize="40"/>
                            </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Browse" fx:id="browseButton">
+                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="browseButton">
+                           <graphic>
+                              <FontAwesomeIconView styleClass="icon" glyphName="SEARCH" glyphSize="40"/>
+                           </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Sources" fx:id="sourcesButton">
+                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="sourcesButton">
+                           <graphic>
+                              <FontAwesomeIconView styleClass="icon" glyphName="COMPASS" glyphSize="40"/>
+                           </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="73.0" text="Settings" fx:id="settingsButton">
+                        <Button mnemonicParsing="false" styleClass="mainButtons" prefHeight="73.0" prefWidth="73.0" fx:id="settingsButton">
+                           <graphic>
+                              <FontAwesomeIconView styleClass="icon" glyphName="COG" glyphSize="40"/>
+                           </graphic>
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Button>
