@@ -1,19 +1,25 @@
 package org.manger.backend.siteExtensions;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import org.manger.frontend.Manga;
 
-import java.io.IOException;
+import java.io.*;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Mangasee implements MangaWebsite {
     String mangaseeURL = "https://mangasee123.com/_search.php";
-    List<SiteGenres> siteGenres;
+    List<String> genres = new ArrayList<>();
 
     @Override
     public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException {
@@ -27,6 +33,21 @@ public class Mangasee implements MangaWebsite {
         MangaInfo[] mangas = gson.fromJson(response.body(), MangaInfo[].class);
 
         return Arrays.asList(mangas);
+    }
+
+    @Override
+    public void loadGenres() {
+        Class<Mangasee> loader = Mangasee.class;
+        InputStream i = loader.getResourceAsStream("/siteGenres/Mangasee.json");
+        assert i != null;
+        BufferedReader r = new BufferedReader(new InputStreamReader(i));
+        String json = null;
+        try {
+            json = r.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        genres = new Gson().fromJson(json, new TypeToken<List<String>>(){}.getType());
     }
 
     @Override

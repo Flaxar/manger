@@ -11,5 +11,7 @@ public interface MangaWebsite {
     */
     public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException;
 
+    public void loadGenres();
+
     public List<MangaInfo> getMangasByGenre();
 }
