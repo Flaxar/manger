@@ -47,7 +47,7 @@
                </children></AnchorPane>
             <StackPane prefHeight="1200.0" prefWidth="1116.0">
                <children>
-                  <Pane fx:id="sourcePane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="sourcePane" disable="true" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <VBox prefHeight="1200.0" prefWidth="1117.0">
                            <children>
@@ -62,17 +62,29 @@
                   <Pane fx:id="browsePane" prefHeight="1200.0" prefWidth="1117.0">
                      <VBox prefHeight="1200.0" prefWidth="1117.0">
                         <HBox prefHeight="55.0" prefWidth="1117.0">
-                           <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="896.0"
-                                      promptText="Search mangas...">
+                           <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="838.0" promptText="Search mangas...">
                               <font>
-                                 <Font size="18.0"/>
+                                 <Font size="18.0" />
                               </font>
                               <HBox.margin>
-                                 <Insets bottom="5.0" right="5.0" top="5.0"/>
+                                 <Insets bottom="5.0" right="5.0" top="5.0" />
                               </HBox.margin>
                            </TextField>
                         </HBox>
-                        <ListView fx:id="mangaList" prefHeight="1169.0" prefWidth="1117.0"/>
+                        <HBox prefHeight="1148.0" prefWidth="1117.0">
+                           <children>
+                              <ListView fx:id="mangaList" styleClass="mangaList" prefHeight="1147.0" prefWidth="838.0">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin>
+                              </ListView>
+                              <ListView fx:id="genreList" styleClass="genreList" prefHeight="1147.0" prefWidth="279.0">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </ListView>
+                           </children>
+                        </HBox>
                      </VBox>
                   </Pane>
                </children>

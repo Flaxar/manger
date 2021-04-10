@@ -23,6 +23,7 @@ public class App extends Application {
 //        WebLoader.downloadMangaList("https://myanimelist.net/mangalist/Flaxar?status=1");
         DataStorage storage = new DataStorage();
         storage.setAllMangas(mangasee.loadListOfAllMangas());
+        storage.setGenres(mangasee.loadGenres());
 
 
 
@@ -36,7 +37,7 @@ public class App extends Application {
         stage.show();
 
         mainWindowController.setStorage(storage);
-        mainWindowController.fillMangaList();
+        mainWindowController.init();
 
         scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());
     }

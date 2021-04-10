@@ -1,32 +1,24 @@
 package org.manger.frontend;
 
-import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.LoadException;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.manger.backend.siteExtensions.MangaInfo;
 
-import java.io.IOException;
-
 public class MainWindowController {
-    // Main controll buttons
-//    @FXML private Button libraryButton;
-//    @FXML private Button browseButton;
-//    @FXML private Button sourcesButton;
-//    @FXML private Button settingsButton;
-
     // Components in the "Browse" section
     @FXML private Pane browsePane;
     @FXML private ListView<String> mangaList;
     @FXML private TextField searchBar;
+    @FXML private ListView<String> genreList;
 
     // Components in the "Source" section
     @FXML private Pane sourcePane;
@@ -37,10 +29,11 @@ public class MainWindowController {
      * Imitates a cunstructor.
      * This is the only solution I've been able to find to fix FXML controller issues.
      */
-    public void init(Stage stage) {
+    public void init() {
         initMainButtons();
-
+        fillMangaList();
         initSearchBarListener();
+        initGenreList();
     }
 
     private void initMainButtons() {
@@ -51,6 +44,23 @@ public class MainWindowController {
         for(MangaInfo info : storage.getAllMangas()) {
             mangaList.getItems().add(info.getTitle());
         }
+    }
+
+    private void initGenreList() {
+        for(String genre : storage.getGenres()) {
+            genreList.getItems().add(genre);
+        }
+        initGenreListListener();
+    }
+
+    private void initGenreListListener() {
+        genreList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Integer selectedGenreIndex = genreList.getSelectionModel().getSelectedIndex();
+//                ListCell<String> cell = genreList.getItems().get(selectedGenreIndex);
+            }
+        });
     }
 
     /**

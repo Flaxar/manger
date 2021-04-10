@@ -6,6 +6,7 @@ import java.util.List;
 
 public class DataStorage {
     List<MangaInfo> allMangas;
+    List<String> genres;
 
     public List<MangaInfo> getAllMangas() {
         return allMangas;
@@ -13,5 +14,13 @@ public class DataStorage {
 
     public void setAllMangas(List<MangaInfo> allMangas) {
         this.allMangas = allMangas;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 }

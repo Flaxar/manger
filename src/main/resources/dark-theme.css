@@ -67,7 +67,6 @@
 .table-row-cell{
     -fx-border-color: transparent;
     -fx-table-cell-border-color:transparent;
-    -fx-font-size: 20;
 }
 
 .mainButtons {
@@ -76,4 +75,24 @@
 
 .icon {
     -fx-fill: white;
+}
+
+.genreList {
+    -fx-font-size: 16;
+}
+
+.mangaList {
+    -fx-font-size: 20;
+}
+
+.genreYes {
+    -fx-text-fill: forestgreen;
+}
+
+.genreNo {
+    -fx-text-fill: darkred;
+}
+
+.genreNotChosen {
+    -fx-text-fill: lightgray;
 }
