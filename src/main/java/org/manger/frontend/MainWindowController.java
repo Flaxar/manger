@@ -12,6 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import org.manger.backend.siteExtensions.MangaInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainWindowController {
     // Components in the "Browse" section
     @FXML private Pane browsePane;
@@ -23,6 +26,8 @@ public class MainWindowController {
     @FXML private Pane sourcePane;
 
     private DataStorage storage;
+    private List<String> wantedGenres = new ArrayList<>();
+    private List<String> unwantedGenres = new ArrayList<>();
 
     /**
      * Imitates a cunstructor.
@@ -42,6 +47,7 @@ public class MainWindowController {
     public void fillMangaList() {
         for(MangaInfo info : storage.getAllMangas()) {
             mangaList.getItems().add(info.getTitle());
+            storage.getFilteredMangas().add(info);
         }
     }
 
@@ -52,27 +58,88 @@ public class MainWindowController {
         initGenreListListener();
     }
 
+
+    /**
+     * TODO:
+     * - write comments about each function connected with genre search
+     * - FIX: filtering with genres and searching with text doesn't work at the same time
+     */
     private void initGenreListListener() {
         genreList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 int selectedGenreIndex = genreList.getSelectionModel().getSelectedIndex();
+                String selectedGenre = genreList.getSelectionModel().getSelectedItem();
                 Object[] cells = genreList.lookupAll(".cell").toArray();
                 Cell<String> cell = (Cell) cells[selectedGenreIndex];
-
 
                 // Visual color change
                 ObservableList<String> CSSclasses = cell.getStyleClass();
                 if(CSSclasses.size() == 3) {
                     CSSclasses.add("genreYes");
+
+                    wantedGenres.add(selectedGenre);
+                    showMangasWithGenre(selectedGenre);
                 } else if(CSSclasses.get(3).equals("genreYes")) {
                     CSSclasses.remove(3);
                     CSSclasses.add("genreNo");
+
+                    wantedGenres.remove(selectedGenre);
+                    unwantedGenres.add(selectedGenre);
+                    restoreRemovedMangas();
+                    removeMangasWithGenre(selectedGenre);
                 } else {
                     CSSclasses.remove(3);
+
+                    unwantedGenres.remove(selectedGenre);
+                    restoreRemovedMangas();
                 }
+                System.out.println(storage.getFilteredMangas().size());
             }
         });
+    }
+
+    private void removeMangasWithGenre(String removingGenre) {
+        List<MangaInfo> mangasToRemove = new ArrayList<>();
+        for(MangaInfo manga : storage.getFilteredMangas()) {
+            if(manga.getGenres().contains(removingGenre)) {
+                mangaList.getItems().remove(manga.getTitle());
+                mangasToRemove.add(manga);
+            }
+        }
+        storage.getFilteredMangas().removeAll(mangasToRemove);
+    }
+
+
+    private void restoreRemovedMangas() {
+        storage.getFilteredMangas().clear();
+        storage.getFilteredMangas().addAll(storage.getAllMangas());
+
+        mangaList.getItems().clear();
+        for(MangaInfo manga : storage.getAllMangas()) {
+            mangaList.getItems().add(manga.getTitle());
+        }
+
+        for(String genre : wantedGenres) {
+            showMangasWithGenre(genre);
+        }
+
+        for(String genre : unwantedGenres) {
+            removeMangasWithGenre(genre);
+        }
+
+        System.out.println(storage.getFilteredMangas().size());
+    }
+
+    private void showMangasWithGenre(String newGenre) {
+        List<MangaInfo> mangasToRemove = new ArrayList<>();
+        for(MangaInfo manga : storage.getFilteredMangas()) {
+            if(!manga.getGenres().contains(newGenre)) {
+                mangaList.getItems().remove(manga.getTitle());
+                mangasToRemove.add(manga);
+            }
+        }
+        storage.getFilteredMangas().removeAll(mangasToRemove);
     }
 
     /**
@@ -95,16 +162,21 @@ public class MainWindowController {
      * @param newValue string value, that user typed into the search bar
      */
     private void filterList(String newValue) {
-        mangaList.getItems().clear();
         String lowerCaseUserInput = newValue.toLowerCase();
         for(MangaInfo info : storage.getAllMangas()) {
             String title = info.getTitle();
             if(title.toLowerCase().contains(lowerCaseUserInput)) {
-                mangaList.getItems().add(title);
+                if(!mangaList.getItems().contains(title)) {
+                    mangaList.getItems().add(title);
+                    storage.getFilteredMangas().add(info);
+                }
             } else if(!info.getAlternatives().isEmpty()) {
                 for(String alternativeTitle : info.getAlternatives()) {
                     if(alternativeTitle.toLowerCase().contains(lowerCaseUserInput)) {
-                        mangaList.getItems().add(title + " (" + alternativeTitle + ")");
+                        if(!mangaList.getItems().contains(title)) {
+                            mangaList.getItems().add(title + " (" + alternativeTitle + ")");
+                            storage.getFilteredMangas().add(info);
+                        }
                     }
                 }
             }
