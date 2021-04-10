@@ -4,6 +4,7 @@ module org.manger {
     requires java.net.http;
     requires com.google.gson;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires org.jsoup;
     opens org.manger.frontend;
     exports org.manger.frontend;
     exports org.manger.backend.siteExtensions;
