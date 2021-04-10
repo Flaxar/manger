@@ -91,8 +91,10 @@
 
 .genreYes {
     -fx-text-fill: forestgreen;
+    -fx-font-weight: bold;
 }
 
 .genreNo {
     -fx-text-fill: darkred;
+    -fx-font-weight: bold;
 }
