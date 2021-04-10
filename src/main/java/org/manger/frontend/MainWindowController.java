@@ -2,15 +2,14 @@ package org.manger.frontend;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 public class MainWindowController {
@@ -57,8 +56,21 @@ public class MainWindowController {
         genreList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Integer selectedGenreIndex = genreList.getSelectionModel().getSelectedIndex();
-//                ListCell<String> cell = genreList.getItems().get(selectedGenreIndex);
+                int selectedGenreIndex = genreList.getSelectionModel().getSelectedIndex();
+                Object[] cells = genreList.lookupAll(".cell").toArray();
+                Cell<String> cell = (Cell) cells[selectedGenreIndex];
+
+
+                // Visual color change
+                ObservableList<String> CSSclasses = cell.getStyleClass();
+                if(CSSclasses.size() == 3) {
+                    CSSclasses.add("genreYes");
+                } else if(CSSclasses.get(3).equals("genreYes")) {
+                    CSSclasses.remove(3);
+                    CSSclasses.add("genreNo");
+                } else {
+                    CSSclasses.remove(3);
+                }
             }
         });
     }

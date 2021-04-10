@@ -69,6 +69,10 @@
     -fx-table-cell-border-color:transparent;
 }
 
+.list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
 .mainButtons {
     -fx-border-color: transparent;
 }
@@ -91,8 +95,4 @@
 
 .genreNo {
     -fx-text-fill: darkred;
-}
-
-.genreNotChosen {
-    -fx-text-fill: lightgray;
 }
