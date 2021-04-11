@@ -1,15 +1,13 @@
 package org.manger.frontend;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Cell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.util.ArrayList;
@@ -34,14 +32,9 @@ public class MainWindowController {
      * This is the only solution I've been able to find to fix FXML controller issues.
      */
     public void init() {
-        initMainButtons();
         fillMangaList();
         initSearchBarListener();
         initGenreList();
-    }
-
-    private void initMainButtons() {
-//        libraryButton.setGraphic(new Image());
     }
 
     public void fillMangaList() {
@@ -60,9 +53,9 @@ public class MainWindowController {
 
 
     /**
-     * TODO:
-     * - write comments about each function connected with genre search
-     * - FIX: filtering with genres and searching with text doesn't work at the same time
+     * Sets on mouse clicked event to genre list view. Everytime a genre is clicked
+     * it's state is changed - visually by color. When the state of a genre is changed,
+     * apropriate function for sorting by genre is called.
      */
     private void initGenreListListener() {
         genreList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -73,14 +66,15 @@ public class MainWindowController {
                 Object[] cells = genreList.lookupAll(".cell").toArray();
                 Cell<String> cell = (Cell) cells[selectedGenreIndex];
 
-                // Visual color change
                 ObservableList<String> CSSclasses = cell.getStyleClass();
                 if(CSSclasses.size() == 3) {
+                    // This code executes when genre's state is set to WANTED
                     CSSclasses.add("genreYes");
 
                     wantedGenres.add(selectedGenre);
                     showMangasWithGenre(selectedGenre);
                 } else if(CSSclasses.get(3).equals("genreYes")) {
+                    // This code executes when genre's state is set to UNWANTED
                     CSSclasses.remove(3);
                     CSSclasses.add("genreNo");
 
@@ -89,6 +83,7 @@ public class MainWindowController {
                     restoreRemovedMangas();
                     removeMangasWithGenre(selectedGenre);
                 } else {
+                    // This code executes when genre's state reset to default
                     CSSclasses.remove(3);
 
                     unwantedGenres.remove(selectedGenre);
@@ -99,6 +94,11 @@ public class MainWindowController {
         });
     }
 
+    /**
+     * Removes all mangas that contain removingGenre in their genres from
+     * storage.filteredMangas and mangaList.
+     * @param removingGenre is the genre you have set as UNWANTED (with red color)
+     */
     private void removeMangasWithGenre(String removingGenre) {
         List<MangaInfo> mangasToRemove = new ArrayList<>();
         for(MangaInfo manga : storage.getFilteredMangas()) {
@@ -110,7 +110,10 @@ public class MainWindowController {
         storage.getFilteredMangas().removeAll(mangasToRemove);
     }
 
-
+    /**
+     * Compares storage.allMangas and storage.filteredMangas and
+     * returns them back to storage.filteredMangas and mangaList.
+     */
     private void restoreRemovedMangas() {
         storage.getFilteredMangas().clear();
         storage.getFilteredMangas().addAll(storage.getAllMangas());
@@ -131,6 +134,11 @@ public class MainWindowController {
         System.out.println(storage.getFilteredMangas().size());
     }
 
+    /**
+     * Removed all mangas that don't contain newGenre as their genre from
+     * storage.filteredMangas and mangaList.
+     * @param newGenre is the genre you have set as WANTED (with green color)
+     */
     private void showMangasWithGenre(String newGenre) {
         List<MangaInfo> mangasToRemove = new ArrayList<>();
         for(MangaInfo manga : storage.getFilteredMangas()) {
