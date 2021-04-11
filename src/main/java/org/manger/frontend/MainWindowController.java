@@ -89,7 +89,6 @@ public class MainWindowController {
                     unwantedGenres.remove(selectedGenre);
                     restoreRemovedMangas();
                 }
-                System.out.println(storage.getFilteredMangas().size());
             }
         });
     }
@@ -130,8 +129,6 @@ public class MainWindowController {
         for(String genre : unwantedGenres) {
             removeMangasWithGenre(genre);
         }
-
-        System.out.println(storage.getFilteredMangas().size());
     }
 
     /**
@@ -171,20 +168,18 @@ public class MainWindowController {
      */
     private void filterList(String newValue) {
         String lowerCaseUserInput = newValue.toLowerCase();
-        for(MangaInfo info : storage.getAllMangas()) {
+        for(MangaInfo info : storage.getFilteredMangas()) {
             String title = info.getTitle();
-            if(title.toLowerCase().contains(lowerCaseUserInput)) {
-                if(!mangaList.getItems().contains(title)) {
-                    mangaList.getItems().add(title);
-                    storage.getFilteredMangas().add(info);
-                }
+            if(!title.toLowerCase().contains(lowerCaseUserInput)) {
+                mangaList.getItems().remove(title);
+            } else if(!mangaList.getItems().contains(title)) {
+                mangaList.getItems().add(title);
             } else if(!info.getAlternatives().isEmpty()) {
                 for(String alternativeTitle : info.getAlternatives()) {
-                    if(alternativeTitle.toLowerCase().contains(lowerCaseUserInput)) {
-                        if(!mangaList.getItems().contains(title)) {
-                            mangaList.getItems().add(title + " (" + alternativeTitle + ")");
-                            storage.getFilteredMangas().add(info);
-                        }
+                    if(!title.toLowerCase().contains(lowerCaseUserInput)) {
+                        mangaList.getItems().remove(title);
+                    } else if(!mangaList.getItems().contains(title)) {
+                        mangaList.getItems().add(title + " (" + alternativeTitle + ")");
                     }
                 }
             }
