@@ -2,9 +2,10 @@ package org.manger.frontend;
 
 import com.google.gson.Gson;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import java.awt.Desktop;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -18,6 +19,8 @@ import org.jsoup.select.Elements;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,10 +41,12 @@ public class MainWindowController {
     @FXML private Pane singleMangaPane;
     @FXML private ImageView mangaCover;
     @FXML private ListView<String> chapterList;
+    @FXML private Button openInBrowserButton;
 
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
     private List<String> unwantedGenres = new ArrayList<>();
+    private MangaInfo openedManga;
 
     /**
      * Imitates a cunstructor.
@@ -204,11 +209,13 @@ public class MainWindowController {
         }
     }
 
-    public void switchToLibraryPane() {
+    @FXML
+    private void switchToLibraryPane() {
 
     }
 
-    public void switchToBrowsePane() {
+    @FXML
+    private void switchToBrowsePane() {
         sourcePane.setVisible(false);
         sourcePane.setDisable(true);
 
@@ -219,7 +226,8 @@ public class MainWindowController {
         singleMangaPane.setDisable(true);
     }
 
-    public void switchToSourcesPane() {
+    @FXML
+    private void switchToSourcesPane() {
         sourcePane.setVisible(true);
         sourcePane.setDisable(false);
 
@@ -234,7 +242,8 @@ public class MainWindowController {
 
     }
 
-    public void switchToSingleMangaPane(MangaInfo manga) {
+    @FXML
+    private void switchToSingleMangaPane(MangaInfo manga) {
         sourcePane.setVisible(false);
         sourcePane.setDisable(true);
 
@@ -248,6 +257,8 @@ public class MainWindowController {
     }
 
     private void showNewSingleMangaInfo(MangaInfo manga) {
+        openedManga = manga;
+
         Image cover = new Image("https://cover.nep.li/cover/" + manga.getHeadURL() + ".jpg");
         mangaCover.setImage(cover);
 
@@ -285,7 +296,8 @@ public class MainWindowController {
         return Arrays.asList(chapters);
     }
 
-    public void handleListItemClicked(MouseEvent mouseEvent) {
+    @FXML
+    private void handleListItemClicked(MouseEvent mouseEvent) {
         for(MangaInfo manga : storage.getAllMangas()) {
             if(manga.getTitle().equals(mangaList.getSelectionModel().getSelectedItem())) {
                 switchToSingleMangaPane(manga);
@@ -296,5 +308,13 @@ public class MainWindowController {
 
     public void setStorage(DataStorage storage) {
         this.storage = storage;
+    }
+
+    public void openMangaInBrowser(MouseEvent mouseEvent) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://mangasee123.com/manga/" + openedManga.getHeadURL()).toURI());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -102,3 +102,9 @@
 .chapterList {
     -fx-font-size: 20;
 }
+
+.singleMangaButtons {
+    -fx-font-size: 40;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
