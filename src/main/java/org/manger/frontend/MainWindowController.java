@@ -1,5 +1,6 @@
 package org.manger.frontend;
 
+import com.google.gson.Gson;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,10 +12,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.manger.backend.siteExtensions.MangaInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainWindowController {
     // Components in the "Browse" section
@@ -29,6 +37,7 @@ public class MainWindowController {
     // Components in the "Single Manga Browse"
     @FXML private Pane singleMangaPane;
     @FXML private ImageView mangaCover;
+    @FXML private ListView<String> chapterList;
 
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
@@ -226,9 +235,6 @@ public class MainWindowController {
         browsePane.setVisible(false);
         browsePane.setDisable(true);
 
-        System.out.println("Browse: " + browsePane);
-        System.out.println("Single: " + singleMangaPane);
-
         singleMangaPane.setVisible(true);
         singleMangaPane.setDisable(false);
 
@@ -238,14 +244,48 @@ public class MainWindowController {
     private void showNewSingleMangaInfo(MangaInfo manga) {
         Image cover = new Image("https://cover.nep.li/cover/" + manga.getHeadURL() + ".jpg");
         mangaCover.setImage(cover);
+
+        List<Chapter> chapters = fetchChapters(manga);
+//        for(Chapter chapter : fetchChapters(manga)) {
+//            System.out.println(chapter.getChapter());
+//        }
     }
 
-    public void setStorage(DataStorage storage) {
-        this.storage = storage;
+    private List<Chapter> fetchChapters(MangaInfo manga) {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect("https://mangasee123.com/manga/" + manga.getHeadURL()).maxBodySize(5000000).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Elements scriptElements = doc.getElementsByTag("script");
+        String unparsedScript = scriptElements.html();
+
+        Pattern pattern = Pattern.compile("vm.Chapters = ([^\\n]*);");
+        Matcher matcher = pattern.matcher(unparsedScript);
+        matcher.find();
+        String unparsedJson = matcher.group(0);
+
+
+        unparsedJson = unparsedJson.replace("vm.Chapters = ", "");
+        unparsedJson = unparsedJson.substring(0, unparsedJson.length() - 1);
+        System.out.println(unparsedJson);
+        Gson gson = new Gson();
+        Chapter[] chapters = gson.fromJson(unparsedJson, Chapter[].class);
+
+        for(Chapter chapter : chapters) {
+            System.out.println(chapter.getChapter());
+        }
+
+        return Arrays.asList(chapters);
     }
 
     public void handleListItemClicked(MouseEvent mouseEvent) {
 //        System.out.println("hey");
         switchToSingleMangaPane(storage.getAllMangas().get(mangaList.getSelectionModel().getSelectedIndex()));
+    }
+
+    public void setStorage(DataStorage storage) {
+        this.storage = storage;
     }
 }
