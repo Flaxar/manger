@@ -32,7 +32,7 @@ public class MangaInfo {
         this.a = a;
     }
 
-    public String getURL() {
+    public String getHeadURL() {
         return i;
     }
 

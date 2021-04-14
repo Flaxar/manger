@@ -1,11 +1,14 @@
 package org.manger.frontend;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Cell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import org.manger.backend.siteExtensions.MangaInfo;
@@ -23,6 +26,10 @@ public class MainWindowController {
     // Components in the "Source" section
     @FXML private Pane sourcePane;
 
+    // Components in the "Single Manga Browse"
+    @FXML private Pane singleMangaPane;
+    @FXML private ImageView mangaCover;
+
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
     private List<String> unwantedGenres = new ArrayList<>();
@@ -32,16 +39,18 @@ public class MainWindowController {
      * This is the only solution I've been able to find to fix FXML controller issues.
      */
     public void init() {
-        fillMangaList();
+        initMangaList();
         initSearchBarListener();
         initGenreList();
     }
 
-    public void fillMangaList() {
+    public void initMangaList() {
         for(MangaInfo info : storage.getAllMangas()) {
             mangaList.getItems().add(info.getTitle());
             storage.getFilteredMangas().add(info);
         }
+
+        
     }
 
     private void initGenreList() {
@@ -210,7 +219,33 @@ public class MainWindowController {
 
     }
 
+    public void switchToSingleMangaPane(MangaInfo manga) {
+        sourcePane.setVisible(false);
+        sourcePane.setDisable(true);
+
+        browsePane.setVisible(false);
+        browsePane.setDisable(true);
+
+        System.out.println("Browse: " + browsePane);
+        System.out.println("Single: " + singleMangaPane);
+
+        singleMangaPane.setVisible(true);
+        singleMangaPane.setDisable(false);
+
+        showNewSingleMangaInfo(manga);
+    }
+
+    private void showNewSingleMangaInfo(MangaInfo manga) {
+        Image cover = new Image("https://cover.nep.li/cover/" + manga.getHeadURL() + ".jpg");
+        mangaCover.setImage(cover);
+    }
+
     public void setStorage(DataStorage storage) {
         this.storage = storage;
+    }
+
+    public void handleListItemClicked(MouseEvent mouseEvent) {
+//        System.out.println("hey");
+        switchToSingleMangaPane(storage.getAllMangas().get(mangaList.getSelectionModel().getSelectedIndex()));
     }
 }
