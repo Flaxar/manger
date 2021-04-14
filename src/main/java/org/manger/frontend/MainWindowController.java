@@ -59,7 +59,7 @@ public class MainWindowController {
             storage.getFilteredMangas().add(info);
         }
 
-        
+
     }
 
     private void initGenreList() {
@@ -214,6 +214,9 @@ public class MainWindowController {
 
         browsePane.setVisible(true);
         browsePane.setDisable(false);
+
+        singleMangaPane.setVisible(false);
+        singleMangaPane.setDisable(true);
     }
 
     public void switchToSourcesPane() {
@@ -222,6 +225,9 @@ public class MainWindowController {
 
         browsePane.setVisible(false);
         browsePane.setDisable(true);
+
+        singleMangaPane.setVisible(false);
+        singleMangaPane.setDisable(true);
     }
 
     public void switchToSettingsPane() {
@@ -246,9 +252,10 @@ public class MainWindowController {
         mangaCover.setImage(cover);
 
         List<Chapter> chapters = fetchChapters(manga);
-//        for(Chapter chapter : fetchChapters(manga)) {
-//            System.out.println(chapter.getChapter());
-//        }
+        chapterList.getItems().clear();
+        for(Chapter chapter : chapters) {
+            chapterList.getItems().add(chapter.getType() + " " + chapter.getChapterNumber());
+        }
     }
 
     private List<Chapter> fetchChapters(MangaInfo manga) {
@@ -266,23 +273,25 @@ public class MainWindowController {
         matcher.find();
         String unparsedJson = matcher.group(0);
 
-
         unparsedJson = unparsedJson.replace("vm.Chapters = ", "");
         unparsedJson = unparsedJson.substring(0, unparsedJson.length() - 1);
-        System.out.println(unparsedJson);
         Gson gson = new Gson();
         Chapter[] chapters = gson.fromJson(unparsedJson, Chapter[].class);
 
         for(Chapter chapter : chapters) {
-            System.out.println(chapter.getChapter());
+            chapter.parseInfo();
         }
 
         return Arrays.asList(chapters);
     }
 
     public void handleListItemClicked(MouseEvent mouseEvent) {
-//        System.out.println("hey");
-        switchToSingleMangaPane(storage.getAllMangas().get(mangaList.getSelectionModel().getSelectedIndex()));
+        for(MangaInfo manga : storage.getAllMangas()) {
+            if(manga.getTitle().equals(mangaList.getSelectionModel().getSelectedItem())) {
+                switchToSingleMangaPane(manga);
+                return;
+            }
+        }
     }
 
     public void setStorage(DataStorage storage) {

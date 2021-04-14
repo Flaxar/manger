@@ -98,3 +98,7 @@
     -fx-text-fill: darkred;
     -fx-font-weight: bold;
 }
+
+.chapterList {
+    -fx-font-size: 20;
+}
