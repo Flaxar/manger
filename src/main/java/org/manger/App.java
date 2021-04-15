@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Mangasee mangasee = new Mangasee(); // TODO: Nacitani pres WebLoader, ne primo z Mangasee
+        Mangasee mangasee = new Mangasee(); // TODO: Nacitani pres WebLoader (make it another thread), ne primo z Mangasee
         mangasee.loadListOfAllMangas();
         mangasee.loadGenres();
 //        WebLoader.downloadMangaList("https://myanimelist.net/mangalist/Flaxar?status=1");
