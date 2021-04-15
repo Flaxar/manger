@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.manger.backend.ParallelLoader;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.io.IOException;
@@ -259,8 +260,8 @@ public class MainWindowController {
     private void showNewSingleMangaInfo(MangaInfo manga) {
         openedManga = manga;
 
-        Image cover = new Image("https://cover.nep.li/cover/" + manga.getHeadURL() + ".jpg");
-        mangaCover.setImage(cover);
+        ParallelLoader loader = new ParallelLoader(manga.getHeadURL(), mangaCover);
+        loader.start();
 
         List<Chapter> chapters = fetchChapters(manga);
         chapterList.getItems().clear();
