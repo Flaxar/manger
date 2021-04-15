@@ -260,42 +260,10 @@ public class MainWindowController {
     private void showNewSingleMangaInfo(MangaInfo manga) {
         openedManga = manga;
 
-        ParallelLoader loader = new ParallelLoader(manga.getHeadURL(), mangaCover);
+        ParallelLoader loader = new ParallelLoader(manga, chapterList, mangaCover);
         loader.start();
-
-        List<Chapter> chapters = fetchChapters(manga);
-        chapterList.getItems().clear();
-        for(Chapter chapter : chapters) {
-            chapterList.getItems().add(chapter.getType() + " " + chapter.getChapterNumber());
-        }
     }
 
-    private List<Chapter> fetchChapters(MangaInfo manga) {
-        Document doc = null;
-        try {
-            doc = Jsoup.connect("https://mangasee123.com/manga/" + manga.getHeadURL()).maxBodySize(5000000).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Elements scriptElements = doc.getElementsByTag("script");
-        String unparsedScript = scriptElements.html();
-
-        Pattern pattern = Pattern.compile("vm.Chapters = ([^\\n]*);");
-        Matcher matcher = pattern.matcher(unparsedScript);
-        matcher.find();
-        String unparsedJson = matcher.group(0);
-
-        unparsedJson = unparsedJson.replace("vm.Chapters = ", "");
-        unparsedJson = unparsedJson.substring(0, unparsedJson.length() - 1);
-        Gson gson = new Gson();
-        Chapter[] chapters = gson.fromJson(unparsedJson, Chapter[].class);
-
-        for(Chapter chapter : chapters) {
-            chapter.parseInfo();
-        }
-
-        return Arrays.asList(chapters);
-    }
 
     @FXML
     private void handleListItemClicked(MouseEvent mouseEvent) {
