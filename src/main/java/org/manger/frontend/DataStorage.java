@@ -3,11 +3,13 @@ package org.manger.frontend;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DataStorage {
     List<MangaInfo> allMangas;
     List<MangaInfo> filteredMangas = new ArrayList<>();
+    HashMap<String, MangaInfo> mangaMap = new HashMap<>();
     List<String> genres;
 
     public List<MangaInfo> getAllMangas() {
@@ -16,6 +18,9 @@ public class DataStorage {
 
     public void setAllMangas(List<MangaInfo> allMangas) {
         this.allMangas = allMangas;
+        for(MangaInfo manga : allMangas) {
+            mangaMap.put(manga.getTitle(), manga);
+        }
     }
 
     public List<String> getGenres() {
@@ -28,6 +33,10 @@ public class DataStorage {
 
     public List<MangaInfo> getFilteredMangas() {
         return filteredMangas;
+    }
+
+    public MangaInfo getMangaByTitle(String mangaTitle) {
+        return mangaMap.get(mangaTitle);
     }
 
     public void setFilteredMangas(List<MangaInfo> filteredMangas) {

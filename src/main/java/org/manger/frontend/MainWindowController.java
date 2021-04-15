@@ -298,12 +298,7 @@ public class MainWindowController {
 
     @FXML
     private void handleListItemClicked(MouseEvent mouseEvent) {
-        for(MangaInfo manga : storage.getAllMangas()) {
-            if(manga.getTitle().equals(mangaList.getSelectionModel().getSelectedItem())) {
-                switchToSingleMangaPane(manga);
-                return;
-            }
-        }
+        switchToSingleMangaPane(storage.getMangaByTitle(mangaList.getSelectionModel().getSelectedItem()));
     }
 
     public void setStorage(DataStorage storage) {
