@@ -50,9 +50,13 @@ public class DatabaseController {
                 "\t\"Point\"\tINTEGER NOT NULL,\n" +
                 "\t\"Type\"\tTEXT NOT NULL,\n" +
                 "\t\"Date\"\tTEXT NOT NULL,\n" +
-                "\t\"Name\"\tTEXT NOT NULL,\n" +
+                "\t\"Name\"\tTEXT,\n" +
                 "\t\"URL\"\tTEXT NOT NULL\n" +
                 ")";
         statement.execute(tableSQL);
+    }
+
+    public void addMangaToLibrary() {
+        
     }
 }

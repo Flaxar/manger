@@ -60,7 +60,7 @@
                            </children>
                         </VBox>
                      </children></Pane>
-                  <Pane fx:id="browsePane" prefHeight="1200.0" prefWidth="1117.0" visible="false">
+                  <Pane fx:id="browsePane" prefHeight="1200.0" prefWidth="1117.0">
                      <VBox prefHeight="1200.0" prefWidth="1117.0">
                         <HBox prefHeight="55.0" prefWidth="1117.0">
                            <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="838.0" promptText="Search mangas...">
@@ -98,7 +98,7 @@
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin></ImageView>
-                                    <Button mnemonicParsing="false" prefHeight="220.0" prefWidth="212.0" text="Button">
+                                    <Button fx:id="addToLibrary" mnemonicParsing="false" onMouseClicked="#addMangaToLibrary" prefHeight="220.0" prefWidth="212.0" styleClass="singleMangaButtons" text="Add To Library">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" top="10.0" />
                                        </VBox.margin>
@@ -119,7 +119,7 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false">
                     <tabs>
                       <Tab closable="false" text="All Added Mangas">
                         <content>

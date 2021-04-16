@@ -18,14 +18,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Mangasee mangasee = new Mangasee(); // TODO: Nacitani pres WebLoader (make it another thread), ne primo z Mangasee
-        mangasee.loadListOfAllMangas();
-        mangasee.loadGenres();
+        WebLoader webLoader = new WebLoader();
+        webLoader.loadGenres();
 //        WebLoader.downloadMangaList("https://myanimelist.net/mangalist/Flaxar?status=1");
         DataStorage storage = new DataStorage();
-        storage.setAllMangas(mangasee.loadListOfAllMangas());
-        storage.setGenres(mangasee.loadGenres());
-
+        storage.setAllMangas(webLoader.loadListOfAllMangas());
+        storage.setGenres(webLoader.loadGenres());
 
 
         stage = new Stage();
@@ -38,6 +36,7 @@ public class App extends Application {
         stage.show();
 
         mainWindowController.setStorage(storage);
+        mainWindowController.setWebLoader(webLoader);
         mainWindowController.init();
 
         scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());

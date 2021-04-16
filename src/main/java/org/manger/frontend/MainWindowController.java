@@ -1,6 +1,5 @@
 package org.manger.frontend;
 
-import com.google.gson.Gson;
 import javafx.collections.ObservableList;
 import java.awt.Desktop;
 import javafx.event.EventHandler;
@@ -9,24 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.manger.backend.ParallelLoader;
+import org.manger.backend.WebLoader;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainWindowController {
     // Components in the "Browse" section
@@ -42,12 +34,14 @@ public class MainWindowController {
     @FXML private Pane singleMangaPane;
     @FXML private ImageView mangaCover;
     @FXML private ListView<String> chapterList;
+    @FXML private Button addToLibrary;
     @FXML private Button openInBrowserButton;
 
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
     private List<String> unwantedGenres = new ArrayList<>();
     private MangaInfo openedManga;
+    private WebLoader webLoader;
 
     /**
      * Imitates a cunstructor.
@@ -260,8 +254,10 @@ public class MainWindowController {
     private void showNewSingleMangaInfo(MangaInfo manga) {
         openedManga = manga;
 
-        ParallelLoader loader = new ParallelLoader(manga, chapterList, mangaCover);
-        loader.start();
+        webLoader.loadMangaCover(mangaCover, manga);
+        for(Chapter chapter : webLoader.getMangaChapters(manga)) {
+            chapterList.getItems().add(chapter.getType() + " " + chapter.getChapterNumber());
+        }
     }
 
 
@@ -280,5 +276,14 @@ public class MainWindowController {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void addMangaToLibrary(MouseEvent mouseEvent) {
+
+    }
+
+    public void setWebLoader(WebLoader webLoader) {
+        this.webLoader = webLoader;
     }
 }

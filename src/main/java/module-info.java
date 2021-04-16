@@ -12,5 +12,6 @@ module org.manger {
 
     exports org.manger.frontend;
     exports org.manger.backend.siteExtensions;
+    exports org.manger.backend;
     exports org.manger;
 }

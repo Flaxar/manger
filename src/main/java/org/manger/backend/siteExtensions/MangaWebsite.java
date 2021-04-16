@@ -1,6 +1,10 @@
 package org.manger.backend.siteExtensions;
 
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import org.manger.frontend.Chapter;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -13,5 +17,7 @@ public interface MangaWebsite {
 
     public List<String> loadGenres();
 
-    public List<MangaInfo> getMangasByGenre();
+    public void loadMangaCover(ImageView imageView, MangaInfo manga);
+
+    public List<Chapter> getMangaChapters(MangaInfo manga);
 }
