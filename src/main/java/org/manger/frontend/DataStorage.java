@@ -1,6 +1,7 @@
 package org.manger.frontend;
 
 import org.manger.backend.DatabaseController;
+import org.manger.backend.WebLoader;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ public class DataStorage {
     List<MangaInfo> filteredMangas = new ArrayList<>();
     HashMap<String, MangaInfo> mangaMap = new HashMap<>();
     List<String> genres;
+    DatabaseController databaseController;
 
-    public DataStorage() {
-        DatabaseController databaseController = new DatabaseController();
+    public DataStorage(WebLoader loader) {
+        databaseController = new DatabaseController();
+        databaseController.setLoader(loader);
     }
 
     public List<MangaInfo> getAllMangas() {
@@ -46,5 +49,9 @@ public class DataStorage {
 
     public void setFilteredMangas(List<MangaInfo> filteredMangas) {
         this.filteredMangas = filteredMangas;
+    }
+
+    public DatabaseController getDatabaseController() {
+        return databaseController;
     }
 }

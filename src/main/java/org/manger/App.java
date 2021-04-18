@@ -21,7 +21,7 @@ public class App extends Application {
         WebLoader webLoader = new WebLoader();
         webLoader.loadGenres();
 //        WebLoader.downloadMangaList("https://myanimelist.net/mangalist/Flaxar?status=1");
-        DataStorage storage = new DataStorage();
+        DataStorage storage = new DataStorage(webLoader);
         storage.setAllMangas(webLoader.loadListOfAllMangas());
         storage.setGenres(webLoader.loadGenres());
 

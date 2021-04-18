@@ -52,4 +52,8 @@ public class MangaInfo {
     public List<String> getGenres() {
         return g;
     }
+
+    public String getType() {
+        return t;
+    }
 }

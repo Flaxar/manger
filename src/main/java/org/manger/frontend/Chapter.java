@@ -66,9 +66,24 @@ public class Chapter {
         }
     }
 
-    public void parseInfo() {
+    public void parseInfo(String mangaURLHeader) {
         index = Integer.parseInt(Chapter.substring(0, 1));
         chapterNumber = Integer.parseInt(Chapter.substring(1, 5));
         point = Integer.parseInt(Chapter.substring(5));
+
+        // TODO: Make a method in MangaWebsite that creates appropriate URL
+        this.URL = String.format("https://mangasee123.com/read-online/%s-chapter-%s-page-%s.html", mangaURLHeader, index, 1);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public int getIntChapterNumber() {
+        return chapterNumber;
     }
 }

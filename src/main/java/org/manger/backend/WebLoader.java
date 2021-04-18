@@ -11,6 +11,7 @@ import java.util.List;
 
 public class WebLoader {
     MangaWebsite defaultWebsite;
+    List<Chapter> lastLoadedChapters;
 
     public WebLoader() {
         defaultWebsite = new Mangasee();
@@ -34,10 +35,20 @@ public class WebLoader {
     }
 
     public List<Chapter> getMangaChapters(MangaInfo manga) {
-        return defaultWebsite.getMangaChapters(manga);
+        lastLoadedChapters = defaultWebsite.getMangaChapters(manga);
+        return lastLoadedChapters;
     }
 
     public void openMangaInBrowser(MangaInfo manga) {
         defaultWebsite.openMangaInBrowser(manga);
+    }
+
+    // TODO: When site changing is introduced, fix this method
+    public String getCurrentSiteName() {
+        return defaultWebsite.getClass().getSimpleName();
+    }
+
+    public List<Chapter> getLastLoadedChapters() {
+        return lastLoadedChapters;
     }
 }

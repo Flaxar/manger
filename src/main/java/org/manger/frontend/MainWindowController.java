@@ -42,6 +42,7 @@ public class MainWindowController {
     private List<String> unwantedGenres = new ArrayList<>();
     private MangaInfo openedManga;
     private WebLoader webLoader;
+    private List<Chapter> currentMangaChapters;
 
     /**
      * Imitates a cunstructor.
@@ -253,7 +254,6 @@ public class MainWindowController {
 
     private void showNewSingleMangaInfo(MangaInfo manga) {
         openedManga = manga;
-
         webLoader.loadMangaCover(mangaCover, manga);
         for(Chapter chapter : webLoader.getMangaChapters(manga)) {
             chapterList.getItems().add(chapter.getType() + " " + chapter.getChapterNumber());
@@ -276,10 +276,14 @@ public class MainWindowController {
 
     @FXML
     private void addMangaToLibrary(MouseEvent mouseEvent) {
-
+        storage.getDatabaseController().addMangaToLibrary(openedManga);
     }
 
     public void setWebLoader(WebLoader webLoader) {
         this.webLoader = webLoader;
+    }
+
+    public List<Chapter> getCurrentMangaChapters() {
+        return currentMangaChapters;
     }
 }

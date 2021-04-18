@@ -105,7 +105,8 @@ public class Mangasee implements MangaWebsite {
         Chapter[] chapters = gson.fromJson(unparsedJson, Chapter[].class);
 
         for(Chapter chapter : chapters) {
-            chapter.parseInfo();
+            chapter.parseInfo(manga.getHeadURL());
+
         }
 
         return Arrays.asList(chapters);
