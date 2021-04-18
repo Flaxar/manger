@@ -271,11 +271,7 @@ public class MainWindowController {
     }
 
     public void openMangaInBrowser(MouseEvent mouseEvent) {
-        try {
-            Desktop.getDesktop().browse(new URL("https://mangasee123.com/manga/" + openedManga.getHeadURL()).toURI());
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+        webLoader.openMangaInBrowser(openedManga);
     }
 
     @FXML

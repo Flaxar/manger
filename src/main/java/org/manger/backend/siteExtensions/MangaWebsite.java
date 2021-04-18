@@ -20,4 +20,6 @@ public interface MangaWebsite {
     public void loadMangaCover(ImageView imageView, MangaInfo manga);
 
     public List<Chapter> getMangaChapters(MangaInfo manga);
+
+    public void openMangaInBrowser(MangaInfo manga);
 }

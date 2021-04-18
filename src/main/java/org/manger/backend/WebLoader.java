@@ -36,4 +36,8 @@ public class WebLoader {
     public List<Chapter> getMangaChapters(MangaInfo manga) {
         return defaultWebsite.getMangaChapters(manga);
     }
+
+    public void openMangaInBrowser(MangaInfo manga) {
+        defaultWebsite.openMangaInBrowser(manga);
+    }
 }

@@ -11,9 +11,12 @@ import org.jsoup.select.Elements;
 import org.manger.frontend.Chapter;
 import org.manger.frontend.Manga;
 
+import java.awt.*;
 import java.io.*;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -106,5 +109,14 @@ public class Mangasee implements MangaWebsite {
         }
 
         return Arrays.asList(chapters);
+    }
+
+    @Override
+    public void openMangaInBrowser(MangaInfo manga) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://mangasee123.com/manga/" + manga.getHeadURL()).toURI());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
