@@ -76,25 +76,34 @@ public class DatabaseController {
             ResultSet resultSet = stmt.executeQuery();
             int mangaId = resultSet.getInt("ID");
 
+            StringBuilder SQLupdate = new StringBuilder("INSERT INTO GENRES (MangaID, Genre) VALUES ");
             for(String genre : manga.getGenres()) {
-                stmt = connection.prepareStatement("INSERT INTO GENRES (MangaID, Genre) VALUES (?, ?)");
-                stmt.setInt(1, mangaId);
-                stmt.setString(2, genre);
-                stmt.executeUpdate();
+                SQLupdate.append("(");
+                SQLupdate.append(mangaId).append(",");
+                SQLupdate.append("\"").append(genre).append("\"");
+                SQLupdate.append("),");
             }
+            String finalSQL = SQLupdate.toString().substring(0, SQLupdate.toString().length() - 1);
+            System.out.println(finalSQL);
+            stmt = connection.prepareStatement(finalSQL);
+            stmt.executeUpdate();
 
+            SQLupdate = new StringBuilder("INSERT INTO CHAPTERS (MangaID, Number, ChapIndex, Point, Type, Date, Name, URL) VALUES ");
             for(Chapter chapter : loader.getLastLoadedChapters()) {
-                stmt = connection.prepareStatement("INSERT INTO CHAPTERS (MangaID, Number, ChapIndex, Point, Type, Date, Name, URL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                stmt.setInt(1, mangaId);
-                stmt.setInt(2, chapter.getIntChapterNumber());
-                stmt.setInt(3, chapter.getIndex());
-                stmt.setInt(4, chapter.getPoint());
-                stmt.setString(5, chapter.getType());
-                stmt.setString(6, chapter.getDate());
-                stmt.setString(7, chapter.getChapterName());
-                stmt.setString(8, chapter.getURL());
-                stmt.executeUpdate();
+                SQLupdate.append("(");
+                SQLupdate.append(mangaId).append(",");
+                SQLupdate.append(chapter.getIntChapterNumber()).append(",");
+                SQLupdate.append(chapter.getIndex()).append(",");
+                SQLupdate.append(chapter.getPoint()).append(",");
+                SQLupdate.append("\"").append(chapter.getType()).append("\"").append(",");
+                SQLupdate.append("\"").append(chapter.getDate()).append("\"").append(",");
+                SQLupdate.append("\"").append(chapter.getChapterName()).append("\"").append(",");
+                SQLupdate.append("\"").append(chapter.getURL()).append("\"");
+                SQLupdate.append("),");
             }
+            String SQLupdateFinal = SQLupdate.toString().substring(0, SQLupdate.toString().length() - 1);
+            stmt = connection.prepareStatement(SQLupdateFinal);
+            stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
