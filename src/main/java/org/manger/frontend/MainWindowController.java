@@ -276,7 +276,13 @@ public class MainWindowController {
 
     @FXML
     private void addMangaToLibrary(MouseEvent mouseEvent) {
-        storage.getDatabaseController().addMangaToLibrary(openedManga);
+        if(addToLibrary.textProperty().get().equals("Remove from Library")) {
+            storage.getDatabaseController().removeMangaFromLibrary(openedManga);
+            addToLibrary.textProperty().setValue("Add to Library");
+        } else {
+            storage.getDatabaseController().addMangaToLibrary(openedManga);
+            addToLibrary.textProperty().setValue("Remove from Library");
+        }
     }
 
     public void setWebLoader(WebLoader webLoader) {

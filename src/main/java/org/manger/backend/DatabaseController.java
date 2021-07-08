@@ -60,6 +60,8 @@ public class DatabaseController {
         statement.execute(tableSQL);
     }
 
+
+
     public void addMangaToLibrary(MangaInfo manga) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
@@ -71,10 +73,7 @@ public class DatabaseController {
             stmt.setString(4, loader.getCurrentSiteName());
             stmt.executeUpdate();
 
-            stmt = connection.prepareStatement("SELECT ID FROM MANGAS WHERE Title = ?");
-            stmt.setString(1, manga.getTitle());
-            ResultSet resultSet = stmt.executeQuery();
-            int mangaId = resultSet.getInt("ID");
+            int mangaId = getMangaId(manga);
 
             StringBuilder SQLupdate = new StringBuilder("INSERT INTO GENRES (MangaID, Genre) VALUES ");
             for(String genre : manga.getGenres()) {
@@ -109,7 +108,29 @@ public class DatabaseController {
         }
     }
 
-    public void removeMangaFromLibrary() {
-        
+    public void removeMangaFromLibrary(MangaInfo manga) {
+        try {
+            int mangaId = getMangaId(manga);
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM MANGAS WHERE ID = ?");
+            statement.setInt(1, mangaId);
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM GENRES WHERE MangaID = ?");
+            statement.setInt(1, mangaId);
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM CHAPTERS WHERE MangaID = ?");
+            statement.setInt(1, mangaId);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private int getMangaId(MangaInfo manga) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("SELECT ID FROM MANGAS WHERE Title = ?");
+        stmt.setString(1, manga.getTitle());
+        ResultSet resultSet = stmt.executeQuery();
+        return resultSet.getInt("ID");
     }
 }
