@@ -6,30 +6,28 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.manger.frontend.Chapter;
-import org.manger.frontend.Manga;
 
 import java.awt.*;
-import java.io.*;
-
-import java.net.URI;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mangasee implements MangaWebsite {
+
+    String mangaseeURL = "https://mangasee123.com/";
+
     @Override
     public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException {
-        Document doc = Jsoup.connect("https://mangasee123.com/search/").maxBodySize(5000000).get();
+        Document doc = Jsoup.connect(mangaseeURL + "search/").userAgent("Mozilla/5.0").maxBodySize(5000000).get();
         Elements scriptElements = doc.getElementsByTag("script");
         String unparsedScript = scriptElements.html();
 
@@ -87,7 +85,10 @@ public class Mangasee implements MangaWebsite {
     public List<Chapter> getMangaChapters(MangaInfo manga) {
         Document doc = null;
         try {
-            doc = Jsoup.connect("https://mangasee123.com/manga/" + manga.getHeadURL()).maxBodySize(5000000).get();
+            doc = Jsoup.connect(mangaseeURL + "manga/" + manga.getHeadURL())
+                    .userAgent("Mozilla/5.0")
+                    .maxBodySize(5000000)
+                    .get();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +116,7 @@ public class Mangasee implements MangaWebsite {
     @Override
     public void openMangaInBrowser(MangaInfo manga) {
         try {
-            Desktop.getDesktop().browse(new URL("https://mangasee123.com/manga/" + manga.getHeadURL()).toURI());
+            Desktop.getDesktop().browse(new URL(mangaseeURL + "manga/" + manga.getHeadURL()).toURI());
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }

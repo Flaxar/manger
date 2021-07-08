@@ -108,4 +108,8 @@ public class DatabaseController {
             throwables.printStackTrace();
         }
     }
+
+    public void removeMangaFromLibrary() {
+        
+    }
 }
