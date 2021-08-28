@@ -1,7 +1,5 @@
 package org.manger.backend.siteExtensions;
 
-
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.manger.frontend.Chapter;
 
@@ -13,13 +11,13 @@ public interface MangaWebsite {
     * Used to download the entire website.
     * Then parse it into a List of MangaInfo classes
     */
-    public List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException;
+    List<MangaInfo> loadListOfAllMangas() throws IOException, InterruptedException;
 
-    public List<String> loadGenres();
+    List<String> loadGenres();
 
-    public void loadMangaCover(ImageView imageView, MangaInfo manga);
+    void loadMangaCover(ImageView imageView, MangaInfo manga);
 
-    public List<Chapter> getMangaChapters(MangaInfo manga);
+    List<Chapter> getMangaChapters(MangaInfo manga);
 
-    public void openMangaInBrowser(MangaInfo manga);
+    void openMangaInBrowser(MangaInfo manga);
 }

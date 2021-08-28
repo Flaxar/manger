@@ -107,7 +107,6 @@ public class Mangasee implements MangaWebsite {
 
         for(Chapter chapter : chapters) {
             chapter.parseInfo(manga.getHeadURL());
-
         }
 
         return Arrays.asList(chapters);

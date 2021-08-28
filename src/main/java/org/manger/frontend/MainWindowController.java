@@ -255,6 +255,7 @@ public class MainWindowController {
     private void showNewSingleMangaInfo(MangaInfo manga) {
         openedManga = manga;
         webLoader.loadMangaCover(mangaCover, manga);
+        chapterList.getItems().clear();
         for(Chapter chapter : webLoader.getMangaChapters(manga)) {
             chapterList.getItems().add(chapter.getType() + " " + chapter.getChapterNumber());
         }
