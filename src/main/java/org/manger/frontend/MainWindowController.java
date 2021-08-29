@@ -2,6 +2,8 @@ package org.manger.frontend;
 
 import javafx.collections.ObservableList;
 import java.awt.Desktop;
+
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainWindowController {
+
     // Components in the "Browse" section
     @FXML private Pane browsePane;
     @FXML private ListView<String> mangaList;
@@ -36,6 +39,9 @@ public class MainWindowController {
     @FXML private ListView<String> chapterList;
     @FXML private Button addToLibrary;
     @FXML private Button openInBrowserButton;
+
+    // Components in the "Manga Library"
+    @FXML private Pane mangaLibraryPane;
 
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
@@ -207,47 +213,51 @@ public class MainWindowController {
 
     @FXML
     private void switchToLibraryPane() {
+        sourcePane.setVisible(false);
 
+        browsePane.setVisible(false);
+
+        singleMangaPane.setVisible(false);
+
+        mangaLibraryPane.setVisible(true);
     }
 
     @FXML
     private void switchToBrowsePane() {
         sourcePane.setVisible(false);
-        sourcePane.setDisable(true);
 
         browsePane.setVisible(true);
-        browsePane.setDisable(false);
 
         singleMangaPane.setVisible(false);
-        singleMangaPane.setDisable(true);
+
+        mangaLibraryPane.setVisible(false);
     }
 
     @FXML
     private void switchToSourcesPane() {
         sourcePane.setVisible(true);
-        sourcePane.setDisable(false);
 
         browsePane.setVisible(false);
-        browsePane.setDisable(true);
 
         singleMangaPane.setVisible(false);
-        singleMangaPane.setDisable(true);
+
+        mangaLibraryPane.setVisible(false);
     }
 
-    public void switchToSettingsPane() {
+    @FXML
+    private void switchToSettingsPane() {
 
     }
 
     @FXML
     private void switchToSingleMangaPane(MangaInfo manga) {
         sourcePane.setVisible(false);
-        sourcePane.setDisable(true);
 
         browsePane.setVisible(false);
-        browsePane.setDisable(true);
 
         singleMangaPane.setVisible(true);
-        singleMangaPane.setDisable(false);
+
+        mangaLibraryPane.setVisible(false);
 
         showNewSingleMangaInfo(manga);
     }
@@ -292,5 +302,20 @@ public class MainWindowController {
 
     public List<Chapter> getCurrentMangaChapters() {
         return currentMangaChapters;
+    }
+
+    @FXML
+    private void removeCategory(ActionEvent actionEvent) {
+
+    }
+
+    @FXML
+    private void addCategory(ActionEvent actionEvent) {
+
+    }
+
+    @FXML
+    private void categorySelected(MouseEvent mouseEvent) {
+
     }
 }
