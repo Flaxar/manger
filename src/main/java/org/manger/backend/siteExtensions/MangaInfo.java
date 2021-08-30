@@ -4,6 +4,7 @@ import javafx.collections.ObservableArray;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MangaInfo {
@@ -23,6 +24,8 @@ public class MangaInfo {
     String ls;
     List<String> g; // genres of the manga
     boolean h;
+
+    List<String> categories = new ArrayList<>(); // categories added by the user
 
     Image cover;
 
@@ -55,5 +58,17 @@ public class MangaInfo {
 
     public String getType() {
         return t;
+    }
+
+    public void addCategory(String category) {
+        categories.add(category);
+    }
+
+    public boolean containsCategory(String category) {
+        return categories.contains(category);
+    }
+
+    public void removeCategory(String category) {
+        categories.remove(category);
     }
 }

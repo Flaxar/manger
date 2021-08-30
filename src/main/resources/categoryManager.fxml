@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.manger.frontend.CategoryManager">
+   <children>
+      <StackPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Pane fx:id="chooseCategoryPane" prefHeight="424.0" prefWidth="600.0" visible="false">
+               <children>
+                  <ListView fx:id="selectCategoryList" layoutY="-1.0" onMouseClicked="#categorySelected" prefHeight="400.0" prefWidth="600.0" />
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Pane>
+            <Pane fx:id="addCategoryPane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="-1.0" layoutY="-2.0" prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <TextField fx:id="newCategoryBar" prefHeight="86.0" prefWidth="600.0" promptText="New Category...">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#addCategory" text="Add">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="240.0" right="130.0" top="100.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

@@ -6,6 +6,8 @@ import java.awt.Desktop;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
 import javafx.scene.control.ListView;
@@ -13,12 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.manger.backend.WebLoader;
 import org.manger.backend.siteExtensions.MangaInfo;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class MainWindowController {
 
     // Components in the "Manga Library"
     @FXML private Pane mangaLibraryPane;
+    @FXML private ListView<String> categoryList;
+    @FXML private Button removeCategoryButton;
 
     private DataStorage storage;
     private List<String> wantedGenres = new ArrayList<>();
@@ -58,6 +61,7 @@ public class MainWindowController {
         initMangaList();
         initSearchBarListener();
         initGenreList();
+        categoryList.getItems().add("Default");
     }
 
     public void initMangaList() {
@@ -304,18 +308,49 @@ public class MainWindowController {
         return currentMangaChapters;
     }
 
+    public void addCategoryToList(String newCategory) {
+        categoryList.getItems().add(newCategory);
+    }
+
+    /**
+     * TODO: When the category is deleted, move all mangas with no other category to Default
+     */
     @FXML
     private void removeCategory(ActionEvent actionEvent) {
-
+        String selectedCategory = categoryList.getSelectionModel().getSelectedItem();
+        if(!selectedCategory.equals("Default")) {
+            categoryList.getItems().remove(categoryList.getSelectionModel().getSelectedIndex());
+            removeCategoryButton.setVisible(false);
+        }
     }
 
     @FXML
     private void addCategory(ActionEvent actionEvent) {
-
+        Stage stage = new Stage();
+        Scene scene;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/categoryManager.fxml"));
+        try{
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        stage.setScene(scene);
+        CategoryManager categoryManager = loader.getController();
+        scene.getStylesheets().add(getClass().getResource("/dark-theme.css").toExternalForm());
+        stage.setTitle("Categories");
+        categoryManager.setStorage(storage);
+        categoryManager.setMainWindowController(this);
+        categoryManager.switchToCategoryAdding();
+        stage.show();
     }
 
     @FXML
     private void categorySelected(MouseEvent mouseEvent) {
-
+        String selectedCategory = categoryList.getSelectionModel().getSelectedItem();
+        if(selectedCategory != null && !selectedCategory.equals("Default")) {
+            removeCategoryButton.setVisible(true);
+        }
     }
 }

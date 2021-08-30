@@ -13,6 +13,7 @@ public class DataStorage {
     List<MangaInfo> filteredMangas = new ArrayList<>();
     HashMap<String, MangaInfo> mangaMap = new HashMap<>();
     List<String> genres;
+    String selectedCategory;
     DatabaseController databaseController;
 
     public DataStorage(WebLoader loader) {
@@ -53,5 +54,13 @@ public class DataStorage {
 
     public DatabaseController getDatabaseController() {
         return databaseController;
+    }
+
+    public String getSelectedCategory() {
+        return selectedCategory;
+    }
+
+    public void setSelectedCategory(String selectedCategory) {
+        this.selectedCategory = selectedCategory;
     }
 }

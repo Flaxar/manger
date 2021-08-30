@@ -145,7 +145,7 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <ListView fx:id="categoryList" onMouseClicked="#categorySelected" prefHeight="1106.0" prefWidth="268.0" />
+                                    <ListView fx:id="categoryList" onMouseClicked="#categorySelected" prefHeight="1106.0" prefWidth="268.0" styleClass="mangaList" />
                                  </children>
                               </VBox>
                               <GridPane fx:id="mangaGrid" prefHeight="1200.0" prefWidth="848.0">
